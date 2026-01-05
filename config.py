@@ -32,23 +32,37 @@ OFFLOAD_FOLDER = None  # e.g., './offload' to use disk for overflow
 SLEEP_BETWEEN_PROBLEMS = 0  # Seconds to sleep between problems (e.g., 0.1)
 
 MODEL_CONFIGS = {
+    'qwen-0.5b': {
+        'model_name': 'Qwen/Qwen2.5-0.5B-Instruct',
+        'load_in_4bit': True,
+        'device_map': 'auto',
+        'max_memory': MAX_MEMORY,
+        'offload_folder': OFFLOAD_FOLDER,
+    },
     'qwen-1.5b': {
         'model_name': 'Qwen/Qwen2.5-1.5B-Instruct',
-        'load_in_4bit': True,  # Set to False if bitsandbytes not available
+        'load_in_4bit': True,
+        'device_map': 'auto',
+        'max_memory': MAX_MEMORY,
+        'offload_folder': OFFLOAD_FOLDER,
+    },
+    'qwen-3b': {
+        'model_name': 'Qwen/Qwen2.5-3B-Instruct',
+        'load_in_4bit': True,
         'device_map': 'auto',
         'max_memory': MAX_MEMORY,
         'offload_folder': OFFLOAD_FOLDER,
     },
     'qwen-7b': {
         'model_name': 'Qwen/Qwen2.5-7B-Instruct',
-        'load_in_4bit': True,  # Set to False if bitsandbytes not available
+        'load_in_4bit': True,
         'device_map': 'auto',
         'max_memory': MAX_MEMORY,
         'offload_folder': OFFLOAD_FOLDER,
     },
     'llama-3-1b': {
         'model_name': 'meta-llama/Llama-3.2-1B-Instruct',
-        'load_in_4bit': True,  # Set to False if bitsandbytes not available
+        'load_in_4bit': True,
         'device_map': 'auto',
         'max_memory': MAX_MEMORY,
         'offload_folder': OFFLOAD_FOLDER,

@@ -75,6 +75,7 @@ def load_model_and_tokenizer(model_config):
     # Load model
     model = AutoModelForCausalLM.from_pretrained(
         model_config['model_name'],
+        token = "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",
         **model_kwargs
     )
     

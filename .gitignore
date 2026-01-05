@@ -1,0 +1,12 @@
+# Build files
+__pycache__
+
+# Environment
+venv
+
+# Images
+*.png
+
+# Results
+results
+figures
