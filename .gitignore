@@ -1,12 +1,23 @@
 # Build files
+build
 __pycache__
+*.egg-info
 
-# Environment
-venv
+# Workspace files
+.vscode
+.idea
+config.yaml
 
-# Images
-*.png
+# Datasets
+data/
 
-# Results
-results
-figures
+# Output/results
+output/
+results/
+
+# Logs
+logs/
+*.log
+
+# Scratch files
+*scratch*

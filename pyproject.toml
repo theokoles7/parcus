@@ -1,0 +1,53 @@
+[build-system]
+requires =          ["setuptools>=61.0"]
+build-backend =     "setuptools.build_meta"
+
+[project]
+name =              "parcus"
+dynamic =           ["version", "readme"]
+description =       "Experiments in analyzing the correlation and effects of token budgets on a language model's ability to reason and generate accurate responses."
+authors =           [
+                        { name = "Gabriel C. Trahan", email = "gabriel.trahan1@louisiana.edu" }
+                    ]
+license =           { text = "GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007" }
+requires-python =   ">=3.10"
+
+dependencies =      [
+                        "datasets",
+                        "numpy",
+                        "torch",
+                        "transformers",
+                    ]
+
+classifiers =       [
+                        "Topic :: Scientific/Engineering :: Artificial Intelligence",
+                        "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+                        "Intended Audience :: Developers",
+                        "Operating System :: OS Independent",
+                        "Programming Language :: Python :: 3",
+                        "Programming Language :: Python :: 3.10",
+                        "Programming Language :: Python :: 3.11",
+                        "Programming Language :: Python :: 3.12",
+                        "Programming Language :: Python :: 3.13",
+                    ]
+
+[project.urls]
+Homepage =          "https://github.com/theokoles7/parcus"
+
+[project.scripts]
+parcus =            "parcus.__main__:parcus_entry_point"
+
+# ----------------------------
+# setuptools-specific config
+# ----------------------------
+
+[tool.setuptools]
+license-files =     ["LICENSE"]
+
+[tool.setuptools.packages.find]
+where =             ["."]
+include =           ["parcus*"]
+
+[tool.setuptools.dynamic]
+version =           { attr = "parcus.__meta__.__version__" }
+readme =            { file = ["README.md"], content-type = "text/markdown" }
