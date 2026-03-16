@@ -7,6 +7,7 @@ __pycache__
 .vscode
 .idea
 config.yaml
+.hf_token
 
 # Datasets
 data/
@@ -21,3 +22,4 @@ logs/
 
 # Scratch files
 *scratch*
+experiments/
