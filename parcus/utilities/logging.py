@@ -13,9 +13,14 @@ from logging.handlers   import RotatingFileHandler
 from os                 import makedirs
 from sys                import stdout
 
+from transformers       import logging as hf_log
+
 
 # Declare base logger.
 LOGGER: Logger = getLogger(name = "parcus")
+
+# Suppress HuggingFace warnings.
+hf_log.set_verbosity_error()
 
 
 def configure_logger(
