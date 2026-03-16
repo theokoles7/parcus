@@ -34,7 +34,7 @@ class GSM8KSample(Sample):
         """
         return  (
                     f"""Solve the following math problem and show your work. """
-                    f"""Present your final numeric answer in the format #### ANSWER.\n"""
+                    f"""End your answer with #### followed by your numeric answer.\n"""
                     f"""Question: {self._raw_["question"]}"""
                 )
 

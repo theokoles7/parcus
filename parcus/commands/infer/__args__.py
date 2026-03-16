@@ -19,7 +19,7 @@ class InferConfig(CommandConfig):
         super(InferConfig, self).__init__(
             name =              "infer",
             help =              """Run model inference on a dataset.""",
-            subparser_title =   "model-name",
+            subparser_title =   "model-id",
             subparser_help =    """Model who will infer datsaet."""
         )
 

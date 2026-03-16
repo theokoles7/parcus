@@ -36,7 +36,7 @@ class DatasetRegistry(Registry):
         dataset_id: str,
         *args,
         **kwargs
-    ) -> Dataset:
+    ) -> "Dataset":
         """# Load Dataset.
 
         ## Args:

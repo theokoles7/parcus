@@ -46,7 +46,7 @@ class Model(ABC):
         self._id_:          str =               id
         self._path_:        str =               path
         self._device_:      t_device =          determine_device(device)
-        model_kwargs:       Dict[str, Any] =    {}
+        model_kwargs:       Dict[str, Any] =    {"device_map": self._device_}
 
         # Log initialization.
         self.__logger__.info(f"Loading {path}")
@@ -56,7 +56,6 @@ class Model(ABC):
 
             # Define memory restriction arguments.
             model_kwargs["max_memory"] =        {0: f"{max_memory}GiB"}
-            model_kwargs["device_map"] =        self._device_
             model_kwargs["offload_folder"] =    offload_path
 
             # Debug memory restriction.
@@ -70,7 +69,6 @@ class Model(ABC):
 
             # Define configuration.
             model_kwargs["quantization_config"] =   BitsAndBytesConfig(load_in_4bit = True)
-            model_kwargs.setdefault("device_map", "auto")
 
             # Debug configuration.
             self.__logger__.info(f"4-bit quantization enabled")
@@ -81,6 +79,7 @@ class Model(ABC):
                                                             **model_kwargs
                                                         )
         self._tokenizer_:   PreTrainedTokenizerBase =   AutoTokenizer.from_pretrained(path)
+
 
     # PROPERTIES ===================================================================================
 
@@ -110,7 +109,7 @@ class Model(ABC):
     def generate(self,
         prompt: str,
         budget: Optional[int]
-    ) -> Tuple[str, int]:
+    ) -> Tuple[str, int, int]:
         """# Generate Response from Prompt.
 
         ## Args:
@@ -120,11 +119,12 @@ class Model(ABC):
         ## Returns:
             * Tuple[str, int]:
                 * str:  Generated response text (excluding prompt).
+                * int:  Token length of prompt.
                 * int:  Number of tokens generated.
         """
         # Tokenize prompt.
         inputs:         Dict[str, Tensor] = self._tokenizer_(
-                                                text =      prompt,
+                                                text =              prompt,
                                                 return_tensors =    "pt"
                                             ).to(self._device_)
         
@@ -132,7 +132,12 @@ class Model(ABC):
         prompt_length:  int =               inputs["input_ids"].shape[-1]
 
         # Build generation arguments.
-        gen_kwargs:     Dict[str, Any] =    {"do_sample": False}
+        gen_kwargs:     Dict[str, Any] =    {
+                                                "do_sample":    False,
+                                                "temperature":  None,
+                                                "top_k":        None,
+                                                "top_p":        None
+                                            }
 
         # If a token budget is defined...
         if budget is not None: gen_kwargs["max_new_tokens"] = budget
@@ -150,4 +155,4 @@ class Model(ABC):
                                             )
         
         # Provide response & token count.
-        return response, token_count
+        return response, prompt_length, token_count

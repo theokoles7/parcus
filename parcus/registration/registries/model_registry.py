@@ -36,7 +36,7 @@ class ModelRegistry(Registry):
         model_id:   str,
         *args,
         **kwargs
-    ) -> Model:
+    ) -> "Model":
         """# Load LLM Model.
 
         ## Args:

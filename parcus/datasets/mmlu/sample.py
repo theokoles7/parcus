@@ -45,7 +45,7 @@ class MMLUSample(Sample):
         
         return  (
                     f"""Answer the following question and provide your reasoning. """
-                    f"""Present your final answer as a single letter in the format #### ANSWER.\n"""
+                    f"""End your answer with #### followed by your single letter answer.\n"""
                     f"""Question: {self._raw_["question"]}\n\n{choices}"""
                 )
 
