@@ -56,9 +56,12 @@ setup(
     packages =                      find_packages(),
     python_requires =               ">=3.10",
     install_requires =              [
+                                        "accelerate",
+                                        "bitsandbytes",
                                         "datasets",
                                         "numpy",
                                         "torch",
+                                        "tqdm",
                                         "transformers",
                                     ],
     entry_points =                  {
