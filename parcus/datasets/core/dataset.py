@@ -35,7 +35,7 @@ class Dataset(ABC):
             * num_samples   (int):  Limit number of samples loaded. Defaults to all.
         """
         # Initialize logger.
-        self.__logger__:    Logger =    get_logger(f"{id}-dataset")
+        self.__logger__:    Logger =        get_logger(f"{id}-dataset")
 
         # Define properties.
         self._id_:          str =           id
@@ -101,6 +101,25 @@ class Dataset(ABC):
         return self._subset_
     
     # METHODS ======================================================================================
+    
+    def evaluate_answer(self,
+        answer:         Optional[str],
+        ground_truth:   str
+    ) -> bool:
+        """# Compare Extracted Answer to Ground Truth.
+
+        ## Args:
+            * answer        (str | None):   Answer extracted from model response.
+            * ground_truth  (str):          Ground truth answer from dataset.
+
+        ## Returns:
+            * bool: True, if answer and ground truth match.
+        """
+        # If no answer was extracted, no evaluation to be done.
+        if answer is None: return False
+
+        # Otherwise, simply direct comparison.
+        return answer.strip().lower() == ground_truth.strip().lower()
 
     def extract_answer(self,
         response:   str
@@ -114,7 +133,7 @@ class Dataset(ABC):
             * Optional[str]:    Extracted answer if found.
         """
         # Search for answer in response.
-        answer: Match = search(pattern = r"####\s*(.+)", string = response)
+        answer: Match = search(pattern = r"####\s*([A-D]|-?\d[\d,\.]*)", string = response)
         
         # If a match is found, return the extracted answer.
         if answer: return answer.group(1).strip()

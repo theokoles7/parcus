@@ -10,6 +10,7 @@ __all__ =   [
 
                 # Datasets
                 "ARC",
+                "CruxEval",
                 "GSM8K",
                 "HellaSwag",
                 "MMLU",
@@ -17,6 +18,8 @@ __all__ =   [
 
                 # Samples
                 "ARCSample",
+                "CruxEvalInputSample",
+                "CruxEvalOutputSample"
                 "GSM8KSample",
                 "HellaSwagSample",
                 "MMLUSample",

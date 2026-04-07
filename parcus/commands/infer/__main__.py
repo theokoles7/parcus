@@ -106,9 +106,10 @@ def infer_entry_point(
             extracted:  Optional[str] =     dataset.extract_answer(response = response)
             
             # Grade response.
-            correct:    bool =              extracted is not None and       \
-                                            extracted.strip().lower() ==    \
-                                            sample.ground_truth.strip().lower()
+            correct:    bool =              dataset.evaluate_answer(
+                                                answer =        extracted,
+                                                ground_truth =  sample.ground_truth
+                                            )
 
             # Record sample result.
             samples[str(s)] =               {

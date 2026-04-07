@@ -9,7 +9,7 @@ from abc                import ABC
 from logging            import Logger
 from typing             import Any, Dict, Optional, Tuple, Union
 
-from torch              import device as t_device, no_grad, Tensor
+from torch              import device as t_device, float16, no_grad, Tensor
 from transformers       import AutoModelForCausalLM, AutoTokenizer, PreTrainedModel, \
                                PreTrainedTokenizerBase
 
@@ -46,7 +46,10 @@ class Model(ABC):
         self._id_:          str =               id
         self._path_:        str =               path
         self._device_:      t_device =          determine_device(device)
-        model_kwargs:       Dict[str, Any] =    {"device_map": self._device_}
+        model_kwargs:       Dict[str, Any] =    {
+                                                    "device_map":   "auto",
+                                                    "dtype":        float16
+                                                }
 
         # Log initialization.
         self.__logger__.info(f"Loading {path}")
@@ -68,7 +71,12 @@ class Model(ABC):
             from transformers import BitsAndBytesConfig
 
             # Define configuration.
-            model_kwargs["quantization_config"] =   BitsAndBytesConfig(load_in_4bit = True)
+            model_kwargs["quantization_config"] =   BitsAndBytesConfig(
+                                                        load_in_4bit=               True,
+                                                        bnb_4bit_quant_type=        "nf4",
+                                                        bnb_4bit_compute_dtype=     float16,
+                                                        bnb_4bit_use_double_quant=  True,
+                                                    )
 
             # Debug configuration.
             self.__logger__.info(f"4-bit quantization enabled")
