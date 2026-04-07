@@ -16,6 +16,7 @@ dependencies =      [
                         "accelerate",
                         "bitsandbytes",
                         "datasets",
+                        "matplotlib",
                         "numpy",
                         "torch",
                         "tqdm",

@@ -59,6 +59,7 @@ setup(
                                         "accelerate",
                                         "bitsandbytes",
                                         "datasets",
+                                        "matplotlib",
                                         "numpy",
                                         "torch",
                                         "tqdm",
